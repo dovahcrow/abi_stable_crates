@@ -83,6 +83,8 @@ pub struct RReadGuard<'a, T> {
     _marker: PhantomData<(&'a T, UnsyncUnsend)>,
 }
 
+unsafe impl<'a, T> owning_ref::StableAddress for RReadGuard<'a, T> {}
+
 /// A write guard,which allows mutable access to the data inside the `RRwLock`.
 ///
 /// There can be only of these for the same RRwLock at any given time.
@@ -96,6 +98,8 @@ pub struct RWriteGuard<'a, T> {
     rlock: &'a RRwLock<T>,
     _marker: PhantomData<(&'a mut T, UnsyncUnsend)>,
 }
+
+unsafe impl<'a, T> owning_ref::StableAddress for RWriteGuard<'a, T> {}
 
 ///////////////////////////////////////////////////////////////////////////////
 
